@@ -1,0 +1,37 @@
+@startuml
+class Student {
+  - int id
+  - string name
+  - int age
+  - string course
+  - double gpa
+  + toCsvRow() string
+  + fromCsvRow(row: string) Student
+}
+
+class StudentManager {
+  - vector<Student> students
+  - map<int, size_t> idIndex
+  + addStudent(student: Student) bool
+  + updateStudent(id: int, updated: Student) bool
+  + deleteStudent(id: int) bool
+  + findStudentById(id: int) Student*
+  + listStudents() vector<Student>
+}
+
+class FileStorage {
+  + load(path: string) vector<Student>
+  + save(path: string, students: vector<Student>) void
+}
+
+class InputValidator {
+  + isValidName(name: string) bool
+  + isValidAge(age: int) bool
+  + isValidGpa(gpa: double) bool
+}
+
+StudentManager --> Student
+StudentManager --> FileStorage
+StudentManager --> InputValidator
+FileStorage --> Student
+@enduml
